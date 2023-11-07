@@ -6,3 +6,6 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.opt.scrolloff = 8
+
+
+vim.cmd.colorscheme 'onedark'
