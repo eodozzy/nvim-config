@@ -27,3 +27,15 @@ vim.o.cindent = true
 
 vim.keymap.set({ 'i', 'v' }, 'jj', '<Esc>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+-- Python path for the virtual environment
+vim.g.python3_host_prog = vim.fn.getcwd() .. '/venv/bin/python'
+
+-- Python specific settings
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "python",
+    callback = function()
+        -- Set up Python formatting on save with Black
+        vim.api.nvim_command([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+    end,
+})
