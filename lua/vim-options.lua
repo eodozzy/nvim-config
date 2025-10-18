@@ -28,8 +28,21 @@ vim.o.cindent = true
 vim.keymap.set({ 'i', 'v' }, 'jj', '<Esc>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
--- Python path for the virtual environment
-vim.g.python3_host_prog = vim.fn.getcwd() .. '/venv/bin/python'
+-- Python virtual environment detection
+local function get_python_path()
+    local venv = vim.fn.environ()["VIRTUAL_ENV"]
+    if venv then
+        return venv .. "/bin/python"
+    else
+        local cwd_venv = vim.fn.getcwd() .. "/venv/bin/python"
+        if vim.fn.filereadable(cwd_venv) == 1 then
+            return cwd_venv
+        end
+        return vim.fn.exepath("python3") or vim.fn.exepath("python") or "python"
+    end
+end
+
+vim.g.python3_host_prog = get_python_path()
 
 -- Python specific settings
 vim.api.nvim_create_autocmd("FileType", {
