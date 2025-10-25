@@ -28,6 +28,12 @@ vim.o.cindent = true
 vim.keymap.set({ 'i', 'v' }, 'jj', '<Esc>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
+-- Center cursor after page navigation
+vim.keymap.set('n', '<C-f>', '<C-f>zz', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-b>', '<C-b>zz', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { noremap = true, silent = true })
+
 -- Python virtual environment detection
 local function get_python_path()
     local venv = vim.fn.environ()["VIRTUAL_ENV"]
